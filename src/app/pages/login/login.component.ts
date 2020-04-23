@@ -21,8 +21,7 @@ export class LoginComponent implements OnInit {
   logIn(form:NgForm){
     if(form.invalid){return;}
     // console.log(form);
-    console.log('Formulario valido');
-    console.log(form);
+    console.log('Formulario valido');    
   }
 
 }
