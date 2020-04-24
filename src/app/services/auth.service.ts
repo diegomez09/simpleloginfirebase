@@ -68,11 +68,16 @@ export class AuthService {
     localStorage.setItem('token',idToken);
   }
 
-  leerToken(){
+  public leerToken(){
     if(localStorage.getItem('token')){
       this.userToken = localStorage.getItem('token');
     }else{
-      this.userToken = null;
+      this.userToken = '';
     }
+  }
+
+  isAuth():boolean{
+    console.log(this.userToken.length);
+    return this.userToken.length > 2;
   }
   }
