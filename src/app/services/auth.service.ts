@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   logOut(){
-
+  localStorage.removeItem('token');
   }
 
   signUp(usuario:UsuarioModel){
@@ -64,8 +64,12 @@ export class AuthService {
   }
 
   private guardarToken(idToken:string){
-    this.userToken = idToken;
+    this.userToken = idToken;    
     localStorage.setItem('token',idToken);
+    let expiraDate = new Date();
+    expiraDate.setSeconds(3600);
+    localStorage.setItem('expira',expiraDate.getTime().toString())
+
   }
 
   public leerToken(){
@@ -77,7 +81,16 @@ export class AuthService {
   }
 
   isAuth():boolean{
-    console.log(this.userToken.length);
-    return this.userToken.length > 2;
+    if(this.userToken.length < 2){
+      return false;
+    }
+      const expira = Number(localStorage.getItem('expira'));
+      const expiraDate = new Date();
+      expiraDate.setTime(expira);    
+      if(expiraDate > new Date()){
+        return true;        
+      }else{
+        return false;
+      }    
   }
-  }
+}
